@@ -16,4 +16,13 @@ public class Articulo {
     public double getValorEstimado() {
         return valorEstimado;
     }
+
+    @Override
+    public String toString() {
+        return "Articulo{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", valorEstimado=" + valorEstimado +
+                '}';
+    }
 }
