@@ -61,17 +61,14 @@ public class Cliente {
         return carrito;
     }
 
-    public void anhadirAlCarrito(Articulo a){
-        this.carrito.add(a);
+    public void anhadirAlCarrito(Articulo articuloAnhadir){
+        this.carrito.add(articuloAnhadir);
     }
 
-    public String eliminarDelCarrito(String articuloRemover) {
+    public void eliminarDelCarrito(String articuloRemover) {
         this.carrito.removeIf(p -> (p.getNombre().equalsIgnoreCase(articuloRemover)));     //Extraigo del artículo que quiero eliminar su nombre, lo comparo con el nombre de los diversos articulos de mi lista y borro la primera ocurrencia que cumpla la condición
-        return articuloRemover;
     }
-    public double valorElementoCarrito(int posicionArticuloCarrito){
-        return carrito.get(posicionArticuloCarrito).getValorEstimado();
-    }
+
     public double sumaElementosCarrito(){       //Suma todos los valores de los elementos del carrito del Cliente.
         double sumaElementos = 0;
 

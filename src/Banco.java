@@ -28,8 +28,4 @@ public class Banco {
         return sumaElementos;
     }
 
-    public Hashtable<String, Cliente> getHt() {
-        return ht;
-    }
-
 }
