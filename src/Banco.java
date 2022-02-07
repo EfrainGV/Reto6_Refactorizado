@@ -16,7 +16,9 @@ public class Banco {
         return ht.get(cedulaClienteConsultado);
     }
 
-
+    public Hashtable<String, Cliente> getHt() {
+        return ht;
+    }
 
     public double sumaTodosCarritos(){      //Itera el Hashtable, calcula el valor de la suma de cada cliente y la suma entre sí.
         double sumaElementos = 0;

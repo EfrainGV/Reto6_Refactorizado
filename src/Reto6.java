@@ -30,8 +30,11 @@ public class Reto6 {
         System.out.print("Numero para localizacion: ");
         int numeroLocalizacion = lecturaDeDatos.nextInt();
 
-        dataBase.anhadirCliente(new Cliente(numeroDocumento, nombreCompleto, paisProcedencia, numeroLocalizacion));
-
+        if(dataBase.getHt().containsKey(numeroDocumento)){
+            throw new NullPointerException();
+        }else {
+            dataBase.anhadirCliente(new Cliente(numeroDocumento, nombreCompleto, paisProcedencia, numeroLocalizacion));
+        }
     }
 
     public static String eliminacionCliente(Banco dataBase) throws NoExisteClienteException{
@@ -78,7 +81,7 @@ public class Reto6 {
 
         switch (opcionSeleccionadaSubmenu) {
             case 1:
-                dataBase.removerCliente(claveConsulta);     //Verificar que el cliente exista en la Hashtable antes de removerlo.
+                dataBase.removerCliente(claveConsulta);
                 System.out.println("Se elimino el cliente de la base de datos");
                 break;
             case 2:
@@ -116,8 +119,7 @@ public class Reto6 {
 
     public static void main(String[] args){
         Banco dataBase = new Banco();
-        Cliente clientePrueba = new Cliente("41621737","Armando Casas", "Colombia", 123);
-        dataBase.anhadirCliente(clientePrueba);
+
         while(true) {
             System.out.println("Bienvenido al Banco, seleccione la operacion a realizar");
             System.out.println("1. Crear cliente");
@@ -141,6 +143,8 @@ public class Reto6 {
 
                     }catch(InputMismatchException e){
                         System.out.println("El numero de localizacion ingresado no es un numero, vuelva a intentarlo");
+                    }catch (NullPointerException e){
+                        System.out.println("Los clientes no pueden compartir el numero de documento");
 
                     }
                     break;
@@ -156,6 +160,8 @@ public class Reto6 {
                         accesoAlCliente(dataBase);
                     }catch (FormatoStringIncorrectoException | NoExisteClienteException | CarritoVacioException e){
                         System.out.println(e.getMessage());
+                    }catch(InputMismatchException e){
+                        System.out.println("Error: Ingrese un numero correcto");
                     }
                     break;
                 case 4:
