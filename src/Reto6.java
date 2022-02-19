@@ -1,7 +1,7 @@
 /*
 Realizado por:
-Samuel Acevedo(CC.1001016099)
-Efraín García(CC.1001370984)
+Samuel Acevedo(CC.1001016099).
+Efraín García(CC.1001370984).
 */
 
 import Excepciones.*;
