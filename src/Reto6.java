@@ -48,7 +48,7 @@ public class Reto6 {
         dataBase.removerCliente(numeroDocumento);}
         return "Se elimino el cliente con el siguiente numero de documento: "+numeroDocumento;
     }
-    public static void accesoAlCliente(Banco dataBase) throws NoExisteClienteException, FormatoStringIncorrectoException, CarritoVacioException {
+    public static void accesoAlCliente(Banco dataBase) throws NoExisteClienteException, FormatoStringIncorrectoException, BovedaVaciaException {
         System.out.println("Escriba el numero de documento del cliente a consultar");
         String claveConsulta = lecturaDeDatos.next();
 
@@ -63,12 +63,12 @@ public class Reto6 {
             System.out.println("Nombre completo = " + dataBase.consultarCliente(claveConsulta).getNombreCompleto());
             System.out.println("Pais de procedencia = " + dataBase.consultarCliente(claveConsulta).getPaisProcedencia());
             System.out.println("Numero de localizacion = " + dataBase.consultarCliente(claveConsulta).getContacto());
-            System.out.println("Elementos en carrito = " + dataBase.consultarCliente(claveConsulta).getCarrito());
+            System.out.println("Articulos en la boveda = " + dataBase.consultarCliente(claveConsulta).getArticulosEnBoveda());
 
             modificacionCliente(dataBase, claveConsulta);
         }
     }
-    public static void modificacionCliente(Banco dataBase,String claveConsulta) throws CarritoVacioException {
+    public static void modificacionCliente(Banco dataBase,String claveConsulta) throws BovedaVaciaException {
 
         System.out.println("Desea ejecutar alguna accion sobre este cliente?");
         System.out.println("1. Eliminar cliente");
@@ -93,22 +93,22 @@ public class Reto6 {
                 String descripcionArticulo = lecturaDeDatos.nextLine();
                 System.out.print("Valor estimado del articulo: ");
                 double valorEstimadoArticulo = lecturaDeDatos.nextDouble();
-                dataBase.consultarCliente(claveConsulta).anhadirAlCarrito(new Articulo(nombreArticulo, descripcionArticulo, valorEstimadoArticulo));
+                dataBase.consultarCliente(claveConsulta).anhadirALaBoveda(new Articulo(nombreArticulo, descripcionArticulo, valorEstimadoArticulo));
                 System.out.println("Anhadido con exito");
                 break;
             case 3:
-                if(dataBase.consultarCliente(claveConsulta).getCarrito() == null){
-                    throw new CarritoVacioException();
+                if(dataBase.consultarCliente(claveConsulta).getArticulosEnBoveda() == null){
+                    throw new BovedaVaciaException();
                 }else {
                     System.out.println("Ingrese el nombre del articulo a remover");
                     String nombreArticuloRemover = lecturaDeDatos.next();
-                    dataBase.consultarCliente(claveConsulta).eliminarDelCarrito(nombreArticuloRemover);
+                    dataBase.consultarCliente(claveConsulta).eliminarDeLaBoveda(nombreArticuloRemover);
                     System.out.println("Se elimino del carrito el siguiente articulo: " + nombreArticuloRemover);
                     break;
                 }
             case 4:
                 System.out.println("La suma total de los valores estimados es: ");
-                double sumaArticulos = dataBase.consultarCliente(claveConsulta).sumaElementosCarrito();
+                double sumaArticulos = dataBase.consultarCliente(claveConsulta).valorTotalArticulosCliente();
                 System.out.println(sumaArticulos);
                 break;
             case 5:
@@ -158,14 +158,14 @@ public class Reto6 {
                 case 3:
                     try {
                         accesoAlCliente(dataBase);
-                    }catch (FormatoStringIncorrectoException | NoExisteClienteException | CarritoVacioException e){
+                    }catch (FormatoStringIncorrectoException | NoExisteClienteException | BovedaVaciaException e){
                         System.out.println(e.getMessage());
                     }catch(InputMismatchException e){
                         System.out.println("Error: Ingrese un numero correcto");
                     }
                     break;
                 case 4:
-                    System.out.println("La suma de todos los elementos en los carritos es: " + dataBase.sumaTodosCarritos());
+                    System.out.println("La suma de todos los Articulos que hay en la boveda es: " + dataBase.valorTodosArticulosBoveda());
                     break;
                 case 0:
                     System.exit(0);

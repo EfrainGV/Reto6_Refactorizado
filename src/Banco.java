@@ -1,5 +1,4 @@
 import java.util.Hashtable;
-import java.util.Iterator;
 
 public class Banco {
 
@@ -20,12 +19,10 @@ public class Banco {
         return ht;
     }
 
-    public double sumaTodosCarritos(){      //Itera el Hashtable, calcula el valor de la suma de cada cliente y la suma entre sí.
+    public double valorTodosArticulosBoveda(){      // Suma el valor de todos los articulos que haya dentro de la boveda
         double sumaElementos = 0;
-        Iterator<String> it = ht.keySet().iterator();
-        while(it.hasNext()){
-            String llave = it.next();
-            sumaElementos += ht.get(llave).sumaElementosCarrito();
+        for (String llave : ht.keySet()) {
+            sumaElementos += ht.get(llave).valorTotalArticulosCliente();
         }
         return sumaElementos;
     }

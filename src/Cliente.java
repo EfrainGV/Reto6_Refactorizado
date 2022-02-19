@@ -1,14 +1,13 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Objects;
 
 
 public class Cliente {
-    private String cedula;
+    private final String cedula;
     private String nombreCompleto;
-    private String paisProcedencia;
+    private final String paisProcedencia;
     private int contacto;
-    private ArrayList<Articulo> carrito = new ArrayList<>();
+    private ArrayList<Articulo> articulosEnBoveda = new ArrayList<>();
 
     public Cliente(String cedula, String nombreCompleto, String paisProcedencia, int contacto) {
         this.cedula = cedula;
@@ -22,12 +21,12 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return contacto == cliente.contacto && cedula.equals(cliente.cedula) && nombreCompleto.equals(cliente.nombreCompleto) && paisProcedencia.equals(cliente.paisProcedencia) && Objects.equals(carrito, cliente.carrito);
+        return contacto == cliente.contacto && cedula.equals(cliente.cedula) && nombreCompleto.equals(cliente.nombreCompleto) && paisProcedencia.equals(cliente.paisProcedencia) && Objects.equals(articulosEnBoveda, cliente.articulosEnBoveda);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cedula, nombreCompleto, paisProcedencia, contacto, carrito);
+        return Objects.hash(cedula, nombreCompleto, paisProcedencia, contacto, articulosEnBoveda);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class Cliente {
                 ", nombreCompleto='" + nombreCompleto + '\'' +
                 ", paisProcedencia='" + paisProcedencia + '\'' +
                 ", contacto=" + contacto +
-                ", carrito=" + carrito +
+                ", articulosEnBoveda=" + articulosEnBoveda +
                 '}';
     }
 
@@ -57,25 +56,23 @@ public class Cliente {
         return contacto;
     }
 
-    public ArrayList<Articulo> getCarrito() {
-        return carrito;
+    public ArrayList<Articulo> getArticulosEnBoveda() {
+        return articulosEnBoveda;
     }
 
-    public void anhadirAlCarrito(Articulo articuloAnhadir){
-        this.carrito.add(articuloAnhadir);
+    public void anhadirALaBoveda(Articulo articuloAnhadir){
+        this.articulosEnBoveda.add(articuloAnhadir);
     }
 
-    public void eliminarDelCarrito(String articuloRemover) {
-        this.carrito.removeIf(p -> (p.getNombre().equalsIgnoreCase(articuloRemover)));     //Extraigo del artículo que quiero eliminar su nombre, lo comparo con el nombre de los diversos articulos de mi lista y borro la primera ocurrencia que cumpla la condición
+    public void eliminarDeLaBoveda(String articuloRemover) {
+        this.articulosEnBoveda.removeIf(p -> (p.getNombre().equalsIgnoreCase(articuloRemover)));     //Extraigo del artículo que quiero eliminar su nombre, lo comparo con el nombre de los diversos articulos de mi lista y borro la primera ocurrencia que cumpla la condición
     }
 
-    public double sumaElementosCarrito(){       //Suma todos los valores de los elementos del carrito del Cliente.
+    public double valorTotalArticulosCliente(){       //Suma el valor de todos los articulos que tenga el cliente.
         double sumaElementos = 0;
 
-        Iterator<Articulo> it = this.carrito.iterator();
-
-        while(it.hasNext()){
-            sumaElementos += it.next().getValorEstimado();
+        for (Articulo articulo : this.articulosEnBoveda) {
+            sumaElementos += articulo.getValorEstimado();
         }
 
         return sumaElementos;
