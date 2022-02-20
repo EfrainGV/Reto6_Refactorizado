@@ -71,10 +71,10 @@ public class Reto6 {
     public static void modificacionCliente(Banco dataBase,String claveConsulta) throws BovedaVaciaException {
 
         System.out.println("Desea ejecutar alguna accion sobre este cliente?");
-        System.out.println("1. Eliminar cliente");
-        System.out.println("2. Agregar articulos al carrito");
-        System.out.println("3. Quitar articulos del carrito");
-        System.out.println("4. Sumar los valores estimados en el carrito");
+        System.out.println("1. Eliminar el cliente");
+        System.out.println("2. Agregar articulos a la bóveda");
+        System.out.println("3. Retirar articulos de la bóveda");
+        System.out.println("4. Valor total de los articulos en bóveda");
         System.out.println("5. Salir");
         System.out.print("Ingrese el numero de la operacion seleccionada: ");
         int opcionSeleccionadaSubmenu = lecturaDeDatos.nextInt();
@@ -103,7 +103,7 @@ public class Reto6 {
                     System.out.println("Ingrese el nombre del articulo a remover");
                     String nombreArticuloRemover = lecturaDeDatos.next();
                     dataBase.consultarCliente(claveConsulta).eliminarDeLaBoveda(nombreArticuloRemover);
-                    System.out.println("Se elimino del carrito el siguiente articulo: " + nombreArticuloRemover);
+                    System.out.println("El artículo " + nombreArticuloRemover + "fué removido de la bóveda");
                     break;
                 }
             case 4:
@@ -125,7 +125,7 @@ public class Reto6 {
             System.out.println("1. Crear cliente");
             System.out.println("2. Eliminar cliente");
             System.out.println("3. Consultar y modificar cliente");
-            System.out.println("4. Suma de todos los articulos de todos los clientes");
+            System.out.println("4. Valor estimado de todos los articulos de todos los clientes");
             System.out.println("0. Salir");
             System.out.print("Ingrese el numero de la operacion seleccionada: ");
             int opcionSeleccionada=0;
@@ -165,7 +165,7 @@ public class Reto6 {
                     }
                     break;
                 case 4:
-                    System.out.println("La suma de todos los Articulos que hay en la boveda es: " + dataBase.valorTodosArticulosBoveda());
+                    System.out.println("La suma de todos los Articulos que hay en la bóveda es: " + dataBase.valorTodosArticulosBoveda());
                     break;
                 case 0:
                     System.exit(0);
